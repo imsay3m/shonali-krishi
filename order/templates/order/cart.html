@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+{% block title %}<title>Cart</title>{% endblock title %}
+{% block body %}
+<!-- BREADCRUMB AREA START -->
+<div class="ltn__breadcrumb-area ltn__breadcrumb-area-2 ltn__breadcrumb-color-white bg-overlay-theme-black-90 bg-image"
+    data-bg="{% static "image/bg/2.jpg" %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ltn__breadcrumb-inner ltn__breadcrumb-inner-2 justify-content-between">
+                    <div class="section-title-area ltn__section-title-2">
+                        <h6 class="section-subtitle ltn__secondary-color">// Welcome to our company</h6>
+                        <h1 class="section-title white-color">Cart</h1>
+                    </div>
+                    <div class="ltn__breadcrumb-list">
+                        <ul>
+                            <li><a href="{% url "home" %}">Home</a></li>
+                            <li>Cart</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BREADCRUMB AREA END -->
+
+<!-- SHOPING CART AREA START -->
+<div class="liton__shoping-cart-area mb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- CUPON CODE AREA START -->
+                {% comment %} <div class="ltn__checkout-inner">
+                    <div class="ltn__checkout-single-content ltn__coupon-code-wrap">
+                        <h5>Have a coupon? <a class="ltn__secondary-color" href="#ltn__coupon-code"
+                                data-bs-toggle="collapse">Click here to enter your code</a></h5>
+                        <div id="ltn__coupon-code" class="collapse ltn__checkout-single-content-info">
+                            <div class="ltn__coupon-code-form">
+                                <p>If you have a coupon code, please apply it below.</p>
+                                <form>
+                                    {% csrf_token %}
+                                    <input type="text" name="coupon-code" placeholder="Coupon code">
+                                    <button class="btn theme-btn-2 btn-effect-2 text-uppercase">Apply
+                                        Coupon</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                <!-- CUPON CODE AREA END -->
+                {% if cart_items %}
+                <div class="shoping-cart-inner">
+                    <div class="shoping-cart-table table-responsive">
+                        <table class="table">
+                            <tbody>
+                                {% for item in cart_items %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <tr>
+                                        <td class="cart-product-remove"><a
+                                                href="{% url "remove_from_cart" item.id %}">X</a>
+                                        </td>
+                                        <td class="cart-product-image">
+                                            <a href="{% url 'product_details' item.product.id %}"><img
+                                                    src="{{item.product.image.url}}" alt="#"></a>
+                                        </td>
+                                        <td class="cart-product-info">
+                                            <h4><a
+                                                    href="{% url "product_details" item.product.id %}">{{item.product.name}}</a>
+                                            </h4>
+                                        </td>
+                                        {% if item.product.is_discount %}
+                                        <td class="cart-product-price">
+                                            <span>৳{{item.product.price|sub:item.product.discount_price}}&nbsp;&nbsp;</span>
+                                            <del>৳{{item.product.price}}</del>
+                                        </td>
+                                        {% else %}
+                                        <td class="cart-product-price">৳{{item.product.price}}</td>
+                                        {% endif %}
+                                        <td class="cart-product-quantity">
+                                            <a href="{% url "item_decrement" item.id %}">
+                                                <div class="cart-plus-minus">
+                                                    <div class="dec qtybutton">-</div>
+                                            </a>
+                                            <input name="quantity" type="text" value="{{item.quantity}}"
+                                                name="qtybutton" class="cart-plus-minus-box">
+                                            <a href="{% url "item_increment" item.id %}">
+                                                <div class="inc qtybutton">+
+                                                </div>
+                                            </a>
+                    </div>
+                    </td>
+                    {% if item.product.is_discount %}
+                    <td class="cart-product-subtotal">
+                        ৳{{item.product.price|sub:item.product.discount_price|mul:item.quantity}}
+                    </td>
+                    {% else %}
+                    <td class="cart-product-subtotal">৳{{item.product.price|mul:item.quantity}}</td>
+                    {% endif %}
+                    </tr>
+                    {% endfor %}
+                    <tr class="cart-coupon-row">
+                        {% comment %} <td colspan="6">
+                            <div class="cart-coupon">
+                                <input type="text" name="cart-coupon" placeholder="Coupon code">
+                                <button type="submit" class="btn theme-btn-2 btn-effect-2">Apply
+                                    Coupon</button>
+                            </div>
+                        </td> {% endcomment %}
+                        <td>
+                            <button type="submit" class="btn theme-btn-2 btn-effect-2-- ">Update
+                                Cart</button>
+                        </td>
+                    </tr>
+                    </form>
+                    </tbody>
+                    </table>
+                </div>
+                <div class="shoping-cart-total mt-50">
+                    <h4>Cart Totals</h4>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Cart Subtotal</td>
+                                <td>৳{{total_price}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Order Total</strong></td>
+                                <td><strong>৳{{total_price}}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="btn-wrapper text-right text-end">
+                        <a href="{% url "checkout" %}" class="theme-btn-1 btn btn-effect-1">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <h1>No Product Is Added To Cart <br> <a href="{% url "products" %}">Go To Shop</a></h1>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+</div>
+<!-- SHOPING CART AREA END -->
+{% endblock body %}

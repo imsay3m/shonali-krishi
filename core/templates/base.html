@@ -1,0 +1,42 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title %}<title>Shonali Krishi</title>{% endblock title %}
+    <script src="https://kit.fontawesome.com/cc1a29eca9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/font-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+</head>
+
+<body>
+    <!-- HEADER AREA START -->
+    <header class="ltn__header-area ltn__header-5 ltn__header-transparent gradient-color-2">
+        <!-- navbar start -->
+        {% include "navbar.html" %}
+        <!-- navbar end -->
+    </header>
+    <!-- HEADER AREA END -->
+    <!-- Utilize CART MENU START -->
+    {% include "side_cart.html" %}
+    <!-- Utilize CART MENU END -->
+    <!-- BODY START -->
+    {% block body %}
+    base html
+    {% endblock body %}
+    <!-- BODY END -->
+    <!-- FOOTER AREA START -->
+    {% include "footer.html" %}
+    <!-- FOOTER AREA END -->
+    <!-- SCRIPT START -->
+    <script src="{% static 'js/plugins.minified.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block script %}{% endblock script %}
+    <!-- SCRIPT END -->
+</body>
+
+</html>
