@@ -155,8 +155,14 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-MEDIA_URL='/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# MEDIA_URL='/media/'
+# MEDIA_ROOT = BASE_DIR /'media'
 
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
