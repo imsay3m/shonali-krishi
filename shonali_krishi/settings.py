@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import dj_database_url
 import environ
 
 env = environ.Env()
@@ -31,6 +31,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com", "https://*.127.0.0.1"]
 
 
 # Application definition
@@ -90,13 +91,30 @@ WSGI_APPLICATION = "shonali_krishi.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+
+DATABASES={
+    'default': dj_database_url.config(
+        default='postgres://shonali_krishi_user:Mze0N2edajMIfHlBCPoLlyOUVhMEutC9@dpg-cnfnlfmg1b2c73bang0g-a.singapore-postgres.render.com/shonali_krishi',
+        )
 }
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+""" DATABASES = {
+'default': {
+'ENGINE': 'django.db.backends.postgresql_psycopg2',
+'NAME': env("DB_NAME"),
+'USER': env("DB_USER"),
+'PASSWORD': env("DB_PASSWORD"),
+'HOST': env("DB_HOST"),
+'PORT': env("DB_PORT"),
+}
+} """
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

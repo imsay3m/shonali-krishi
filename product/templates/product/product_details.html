@@ -143,6 +143,7 @@
                                     </div>
                                 </div>
                                 <!-- comment-reply -->
+                                {% if request.user in product.buyer.all %}
                                 <div class="ltn__comment-reply-area ltn__form-box">
                                     <form action="#" method="post">
                                         {% csrf_token %}
@@ -156,6 +157,7 @@
                                         </div>
                                     </form>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ from product.models import Product
 
 TRANSACTION_TYPES=[
     ['PAY', 'PAY'],
+    ['RETURN','RETURN'],
     ]
 
 class Transaction(models.Model):

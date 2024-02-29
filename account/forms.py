@@ -138,8 +138,10 @@ class UserUpdateForm(forms.ModelForm):
                 self.fields['country'].initial=user_address.country
 
     def save(self,commit=True):
-        our_user=super().save(commit=False)
+        print('save is checked')
+        our_user=super().save(commit=True)
         if commit:
+            print('commit is True')
             our_user.save()
 
             user_account,created=UserAccount.objects.get_or_create(user=our_user)

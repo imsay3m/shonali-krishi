@@ -45,9 +45,9 @@
                                                 class="fas fa-user"></i></a>
                                         <a data-bs-toggle="tab" href="#liton_tab_1_4">Address <i
                                                 class="fas fa-map-marker-alt"></i></a>
-                                        <a data-bs-toggle="tab" href="{% url "coming_soon" %}">Orders <i
+                                        <a data-bs-toggle="tab" href="#liton_tab_1_2">Orders <i
                                                 class="fas fa-file-alt"></i></a>
-                                        <a data-bs-toggle="tab" href="{% url "coming_soon" %}">Transactions <i
+                                        <a data-bs-toggle="tab" href="#liton_tab_1_3">Transactions <i
                                                 class="fas fa-arrow-down"></i></a>
                                         <form action="{% url 'logout' %}" method="post">
                                             {% csrf_token %}
@@ -62,7 +62,7 @@
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <p>Hello <strong>{{request.user.first_name}}
                                                     {{request.user.last_name}}</strong><br>
-                                                Your Current Balance is: {{request.user.account.balance}} (For Test
+                                                Your Current Balance is: ৳{{request.user.account.balance}} (For Test
                                                 Purpose)</p>
                                             <p>From your account dashboard you can view your <span>recent
                                                     orders</span>, manage your <span>shipping and billing
@@ -73,6 +73,7 @@
                                     <div class="tab-pane fade" id="liton_tab_1_2">
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <div class="table-responsive">
+                                                {% if orders %}
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
@@ -80,68 +81,66 @@
                                                             <th>Date</th>
                                                             <th>Status</th>
                                                             <th>Total</th>
-                                                            <th>Action</th>
+                                                            <th>Products</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        {% for order in orders %}
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Jun 22, 2019</td>
-                                                            <td>Pending</td>
-                                                            <td>$3000</td>
-                                                            <td><a href="cart.html">View</a></td>
+                                                            <td>{{order.order_no}}</td>
+                                                            <td>{{order.placed_on}}</td>
+                                                            <td>{{order.status}}</td>
+                                                            <td>৳{{order.total}}</td>
+                                                            <td>
+                                                                {% for product in order.products.all %}
+                                                                <a href="{% url "product_details" product.id %}">
+                                                                    {{product}}
+                                                                </a><br>
+                                                                {% endfor %}
+                                                            </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>Nov 22, 2019</td>
-                                                            <td>Approved</td>
-                                                            <td>$200</td>
-                                                            <td><a href="cart.html">View</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>Jan 12, 2020</td>
-                                                            <td>On Hold</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html">View</a></td>
-                                                        </tr>
+                                                        {% endfor %}
                                                     </tbody>
                                                 </table>
+                                                {% else %}
+                                                <h2>No Orders Yet!</h2>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="liton_tab_1_3">
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                {% if transactions %}
+                                                <table class="table text-center ">
                                                     <thead>
                                                         <tr>
-                                                            <th>Product</th>
+                                                            <th>Transaction</th>
                                                             <th>Date</th>
-                                                            <th>Download</th>
+                                                            <th>Type</th>
+                                                            <th>Amount</th>
+                                                            <th>Balance After Transaction</th>
+                                                            {% comment %} <th>Download</th> {% endcomment %}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        {% for transaction in transactions %}
                                                         <tr>
-                                                            <td>Orange</td>
-                                                            <td>Nov 22, 2023</td>
-                                                            <td><a href="#"><i class="fa-regular fa-floppy-disk"></i>
-                                                                    Download File</a></td>
+                                                            <td>{{transaction.payment_id}}</td>
+                                                            <td>{{transaction.timestamp}}</td>
+                                                            <td>{{transaction.transaction_type}}</td>
+                                                            <td>৳{{transaction.amount}}</td>
+                                                            <td>৳{{transaction.balance_after_transaction}}</td>
+                                                            {% comment %} <td><a href="#"><i
+                                                                        class="fa-regular fa-floppy-disk"></i>
+                                                                    Download File</a></td> {% endcomment %}
                                                         </tr>
-                                                        <tr>
-                                                            <td>Orange</td>
-                                                            <td>Nov 10, 2023</td>
-                                                            <td><a href="#"><i class="fa-regular fa-floppy-disk"></i>
-                                                                    Download File</a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Orange</td>
-                                                            <td>Nov 12, 2023</td>
-                                                            <td><a href="#"><i class="fa-regular fa-floppy-disk"></i>
-                                                                    Download File</a></td>
-                                                        </tr>
+                                                        {% endfor %}
                                                     </tbody>
                                                 </table>
+                                                {% else %}
+                                                <h2>No Transactions yet.</h2>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -210,7 +209,6 @@
                                                             {{form.country}}
                                                         </div>
                                                     </div>
-
                                                     <fieldset>
                                                         <legend class="mb-3">Password change</legend>
                                                         <div class="row">
