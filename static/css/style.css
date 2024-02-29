@@ -8115,9 +8115,9 @@ ul.wp-block-latest-posts.is-grid.alignwide {
 
 @media (max-width: 1599px) {
 
-  .liton-slide-item,
+  .sayem-slide-item,
   .ltn__slide-item-3,
-  .liton-slide-item-inner {
+  .sayem-slide-item-inner {
     height: inherit;
   }
 
@@ -8220,7 +8220,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
     height: auto;
   }
 
-  .liton-slide-item-inner {
+  .sayem-slide-item-inner {
     height: inherit;
   }
 
@@ -8255,7 +8255,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
     font-size: 26px;
   }
 
-  .liton-slide-item-inner {
+  .sayem-slide-item-inner {
     height: inherit;
   }
 
@@ -8366,7 +8366,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
 }
 
 @media (max-width: 767px) {
-  .liton-slide-item-inner {
+  .sayem-slide-item-inner {
     height: inherit;
   }
 

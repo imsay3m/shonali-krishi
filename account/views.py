@@ -1,6 +1,5 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views import View
 from order.models import Transaction,Order
 from django.views.generic import FormView,ListView
 from .forms import UserRegistrationForm, UserUpdateForm
@@ -10,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from order.models import CartItem
 # from django.views.generic.edit import UpdateView
 # Create your views here.
 class UserRegistrationView(FormView):
@@ -49,6 +49,11 @@ def user_update_view(request):
     password_form = PasswordChangeForm(request.user)
     orders = Order.objects.filter(user=request.user).order_by('-placed_on')
     transactions = Transaction.objects.filter(account__user=request.user).order_by('-timestamp')
+    cart_items = None
+    total_price=0
+    if request.user.is_authenticated:
+        cart_items = CartItem.objects.filter(user=request.user)
+        total_price = sum(item.product.price * item.quantity for item in cart_items)-sum(item.product.discount_price * item.quantity for item in cart_items)
 
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
@@ -74,16 +79,6 @@ def user_update_view(request):
         'password_form': password_form,
         'orders': orders,
         'transactions': transactions,
+        'cart_items': cart_items,
+        'total_price': total_price,
     })
-
-
-
-class PaymentReportView(ListView, LoginRequiredMixin):
-    template_name = 'account/user_account.html'
-    model = Transaction
-    
-    def get_queryset(self):
-        queryset = super().get_queryset().filter(
-            account=self.request.user.account
-        ).order_by('-timestamp')
-        return queryset

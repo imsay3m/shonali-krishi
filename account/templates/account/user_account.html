@@ -28,7 +28,7 @@
 <!-- BREADCRUMB AREA END -->
 
 <!-- WISHLIST AREA START -->
-<div class="liton__wishlist-area pb-70">
+<div class="sayem__wishlist-area pb-70">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -39,15 +39,15 @@
                             <div class="col-lg-4">
                                 <div class="ltn__tab-menu-list mb-50">
                                     <div class="nav">
-                                        <a class="active show" data-bs-toggle="tab" href="#liton_tab_1_1">Dashboard
+                                        <a class="active show" data-bs-toggle="tab" href="#sayem_tab_1_1">Dashboard
                                             <i class="fas fa-home"></i></a>
-                                        <a data-bs-toggle="tab" href="#liton_tab_1_5">Account Details <i
+                                        <a data-bs-toggle="tab" href="#sayem_tab_1_5">Account Details <i
                                                 class="fas fa-user"></i></a>
-                                        <a data-bs-toggle="tab" href="#liton_tab_1_4">Address <i
+                                        <a data-bs-toggle="tab" href="#sayem_tab_1_4">Address <i
                                                 class="fas fa-map-marker-alt"></i></a>
-                                        <a data-bs-toggle="tab" href="#liton_tab_1_2">Orders <i
+                                        <a data-bs-toggle="tab" href="#sayem_tab_1_2">Orders <i
                                                 class="fas fa-file-alt"></i></a>
-                                        <a data-bs-toggle="tab" href="#liton_tab_1_3">Transactions <i
+                                        <a data-bs-toggle="tab" href="#sayem_tab_1_3">Transactions <i
                                                 class="fas fa-arrow-down"></i></a>
                                         <form action="{% url 'logout' %}" method="post">
                                             {% csrf_token %}
@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="tab-content">
-                                    <div class="tab-pane fade active show" id="liton_tab_1_1">
+                                    <div class="tab-pane fade active show" id="sayem_tab_1_1">
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <p>Hello <strong>{{request.user.first_name}}
                                                     {{request.user.last_name}}</strong><br>
@@ -70,7 +70,7 @@
                                                     details</span>.</p>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="liton_tab_1_2">
+                                    <div class="tab-pane fade" id="sayem_tab_1_2">
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <div class="table-responsive">
                                                 {% if orders %}
@@ -108,7 +108,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="liton_tab_1_3">
+                                    <div class="tab-pane fade" id="sayem_tab_1_3">
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <div class="table-responsive">
                                                 {% if transactions %}
@@ -144,7 +144,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="liton_tab_1_4">
+                                    <div class="tab-pane fade" id="sayem_tab_1_4">
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <p>The following addresses will be used on the checkout page by default.
                                             </p>
@@ -176,7 +176,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="liton_tab_1_5">
+                                    <div class="tab-pane fade" id="sayem_tab_1_5">
                                         <div class="ltn__myaccount-tab-content-inner">
                                             <p>The following addresses will be used on the checkout page by default.
                                             </p>

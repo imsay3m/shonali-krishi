@@ -46,7 +46,7 @@ def cart_clear(request):
     cart_items.delete()
     return redirect('view_cart')
 
-
+@login_required
 def checkout(request):
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)-sum(item.product.discount_price * item.quantity for item in cart_items)
